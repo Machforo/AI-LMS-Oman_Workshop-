@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Traininglobe Hub</title>
+<meta name="description" content="Choose AI Tools Playbook, AI Ascent, or Hands-on Practice." />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+:root{
+  --bg:#f3f6f4;--ink:#142033;--muted:#5b6777;--card:#fff;--line:#d7e0db;
+  --accent:#0f7a6c;--accent-deep:#0b5a51;--accent-soft:#e4f4f0;--navy:#12324a;
+  --shadow:0 14px 40px rgba(18,50,74,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;color:var(--ink);font-family:"Source Sans 3",sans-serif;line-height:1.65;
+  background:
+    radial-gradient(900px 420px at 8% -8%, rgba(15,122,108,.14), transparent 55%),
+    linear-gradient(180deg,#eef3f0 0%, var(--bg) 45%, #eef2f5 100%);
+  min-height:100vh;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:1.5rem 1.25rem 3rem}
+header{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  margin-bottom:1.5rem;
+}
+header h1{margin:0 0 .35rem;font-family:Fraunces,Georgia,serif;color:var(--navy);font-size:clamp(1.8rem,3vw,2.3rem)}
+header p{margin:0;color:var(--muted);max-width:48ch}
+.userbar{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap}
+.userbar span{font-weight:600;color:var(--navy)}
+.btn{
+  border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:11px;
+  padding:.55rem .85rem;font:600 .9rem "Source Sans 3",sans-serif;cursor:pointer;text-decoration:none;
+}
+.btn-admin{background:var(--accent-soft);border-color:#a9d6cc;color:var(--accent-deep)}
+.btn-logout:hover{background:#e8eef3}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;padding:1.35rem 1.3rem 1.2rem;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;gap:.75rem;min-height:220px;
+}
+.card h2{margin:0;font-family:Fraunces,Georgia,serif;color:var(--navy);font-size:1.35rem}
+.card p{margin:0;color:var(--muted);flex:1}
+.card-actions{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.open-btn{
+  border:0;border-radius:11px;padding:.7rem 1rem;cursor:pointer;
+  background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff;
+  font:700 .95rem "Source Sans 3",sans-serif;
+}
+.open-btn:disabled{opacity:.45;cursor:not-allowed}
+.badge{
+  font-size:.72rem;font-weight:700;padding:.2rem .55rem;border-radius:999px;
+  background:#e8eef3;color:var(--navy);
+}
+.badge.locked{background:#fdeceb;color:#8a2f2a}
+.msg{margin:0 0 1rem;padding:.7rem .85rem;border-radius:10px;background:#fdeceb;color:#8a2f2a;font-weight:600}
+.msg[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="sso.js"></script>
+<script src="auth.js"></script>
+<script src="access.js"></script>
+<script>HubAuth.requireAuth('index.html');</script>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Traininglobe Hub</h1>
+      <p>Pick a path. Playbook and Ascent open with your hub session; Hands-on opens the practice LMS.</p>
+    </div>
+    <div class="userbar">
+      <span id="who"></span>
+      <a id="admin-link" class="btn btn-admin" href="admin.html" hidden>Admin</a>
+      <button type="button" class="btn btn-logout" id="logout-btn">Sign out</button>
+    </div>
+  </header>
+  <p id="home-msg" class="msg" hidden></p>
+  <div class="grid" id="card-grid"></div>
+</div>
+<script>
+(function () {
+  document.getElementById('who').textContent = 'Signed in as ' + HubAuth.currentUser();
+  if (HubAuth.isAdmin()) document.getElementById('admin-link').hidden = false;
+
+  document.getElementById('logout-btn').addEventListener('click', function () {
+    HubAuth.logout();
+    location.href = 'index.html';
+  });
+
+  var msg = document.getElementById('home-msg');
+  var grid = document.getElementById('card-grid');
+  var cards = HubConfig.CARDS;
+
+  function reenableOpenButtons() {
+    // Browser back/forward often restores this page from bfcache with Open still disabled.
+    grid.querySelectorAll('.open-btn').forEach(function (btn) {
+      if (btn.getAttribute('data-locked') === '1') return;
+      btn.disabled = false;
+    });
+  }
+
+  window.addEventListener('pageshow', reenableOpenButtons);
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') reenableOpenButtons();
+  });
+
+  HubAccess.loadPermissions().then(function (perms) {
+    HubAccess.CARD_IDS.forEach(function (id) {
+      var meta = cards[id];
+      if (!meta) return;
+      var allowed = HubAccess.canOpenCard(id, perms);
+      var el = document.createElement('article');
+      el.className = 'card';
+      el.innerHTML =
+        '<h2>' + meta.title + '</h2>' +
+        '<p>' + meta.blurb + '</p>' +
+        '<div class="card-actions">' +
+        '<span class="badge ' + (allowed ? '' : 'locked') + '">' + (allowed ? 'Available' : 'Restricted') + '</span>' +
+        '<button type="button" class="open-btn" data-card="' + id + '"' +
+          (allowed ? '' : ' data-locked="1" disabled') + '>Open</button>' +
+        '</div>';
+      grid.appendChild(el);
+    });
+
+    grid.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-card]');
+      if (!btn || btn.disabled) return;
+      msg.hidden = true;
+      btn.disabled = true;
+      HubAccess.openCard(btn.getAttribute('data-card')).then(function (result) {
+        if (!result.ok) {
+          btn.disabled = false;
+          msg.textContent = result.error || 'Could not open card.';
+          msg.hidden = false;
+        }
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

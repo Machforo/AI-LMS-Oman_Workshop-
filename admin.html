@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin · Traininglobe Hub</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+:root{--bg:#f3f6f4;--ink:#142033;--muted:#5b6777;--card:#fff;--line:#d7e0db;--accent:#0f7a6c;--accent-deep:#0b5a51;--accent-soft:#e4f4f0;--navy:#12324a;--shadow:0 14px 40px rgba(18,50,74,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:"Source Sans 3",sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:1.25rem 1rem 2.5rem}
+header{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
+header h1{margin:0;font-family:Fraunces,Georgia,serif;color:var(--navy);font-size:1.8rem}
+header a{color:var(--accent-deep);text-decoration:none;font-weight:600}
+.tabs{display:flex;gap:.45rem;margin-bottom:1rem;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:.45rem .85rem;cursor:pointer;font-weight:600}
+.tab.is-active{background:var(--accent-soft);border-color:#a9d6cc;color:var(--accent-deep)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:1rem;box-shadow:var(--shadow)}
+.panel[hidden]{display:none!important}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.tree{max-height:50vh;overflow:auto;border:1px solid var(--line);border-radius:12px;padding:.6rem}
+.tree-item{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.45rem .5rem;border-radius:8px;cursor:pointer}
+.tree-item:hover{background:var(--accent-soft)}
+.tree-item.is-selected{background:#e7f2ef}
+.tree-title{font-size:.95rem;font-weight:600}
+.tree-meta{font-size:.75rem;color:var(--muted)}
+.badge{font-size:.72rem;padding:.15rem .45rem;border-radius:999px;background:#e8eef3;color:var(--navy)}
+.field{display:flex;flex-direction:column;gap:.3rem;margin:.55rem 0}
+.field label{font-size:.85rem;font-weight:700;color:var(--navy)}
+.field input,.field select,.field textarea{font:inherit;border:1px solid #c9d5cf;border-radius:10px;padding:.6rem .7rem}
+.btn{border:0;border-radius:10px;padding:.6rem .9rem;font-weight:700;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-deep));color:#fff}
+.btn-secondary{background:#fff;border:1px solid var(--line);color:var(--navy)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{border-bottom:1px solid var(--line);padding:.55rem .45rem;text-align:left;vertical-align:top}
+th{color:var(--navy)}
+.msg{margin:.75rem 0;padding:.65rem .75rem;border-radius:10px;background:var(--accent-soft);color:var(--accent-deep);font-weight:600}
+.msg.error{background:#fdeceb;color:#8a2f2a}
+</style>
+</head>
+<body>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="sso.js"></script>
+<script src="auth.js"></script>
+<script src="access.js"></script>
+<script>HubAuth.requireAdmin('index.html');</script>
+<div class="wrap">
+<header>
+<h1>Hub access admin</h1>
+<a href="home.html">← Back to cards</a>
+</header>
+<p id="admin-msg" class="msg" hidden></p>
+<div class="tabs">
+<button type="button" class="tab is-active" data-tab="cards">Card access</button>
+<button type="button" class="tab" data-tab="grants">Active grants</button>
+</div>
+<section class="panel" id="panel-cards" data-panel="cards">
+<div class="grid">
+<div>
+<h2>Cards</h2>
+<div id="card-tree" class="tree"></div>
+</div>
+<div>
+<h2>Policy &amp; grant</h2>
+<p id="selected-card-label" class="tree-meta">Select a card</p>
+<form id="policy-form">
+<input type="hidden" id="policy-card-id" />
+<label><input type="checkbox" id="policy-restricted" /> Restrict this card (only granted users can open)</label>
+<div class="field">
+<label for="policy-expiry-days">Default expiry (days) when granting</label>
+<input id="policy-expiry-days" type="number" min="1" value="30" />
+</div>
+<button type="submit" class="btn btn-primary">Save policy</button>
+</form>
+<hr />
+<form id="manual-grant-form">
+<div class="field"><label for="grant-username">Username</label><select id="grant-username"></select></div>
+<div class="field"><label for="grant-expires">Expires (optional)</label><input id="grant-expires" type="datetime-local" /></div>
+<div class="field"><label for="grant-notes">Admin notes</label><textarea id="grant-notes" rows="2"></textarea></div>
+<button type="submit" class="btn btn-secondary">Grant access</button>
+</form>
+</div>
+</div>
+</section>
+<section class="panel" id="panel-grants" data-panel="grants" hidden>
+<h2>Active grants</h2>
+<table>
+<thead><tr><th>User</th><th>Card</th><th>Expires</th><th>Time left</th><th>Granted by</th><th>Action</th></tr></thead>
+<tbody id="grants-body"></tbody>
+</table>
+</section>
+</div>
+<script src="admin.js"></script>
+</body>
+</html>
