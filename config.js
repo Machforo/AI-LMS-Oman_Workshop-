@@ -24,7 +24,7 @@ var HubConfig = {
       id: 'hands-on',
       title: 'Hands-on Practice',
       blurb: 'Adaptive AI LMS for live practice. Opens from the hub with your cohort session.',
-      url: 'https://ai-lms-delta.vercel.app/',
+      url: 'https://hands-on.traininglobe.com/',
       sso: true
     }
   }
