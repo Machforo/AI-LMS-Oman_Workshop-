@@ -21,16 +21,30 @@ var CARD_IDS = ['playbook', 'ascent', 'hands-on'];
 
 var SEED_USERS = [
   ['Admin', 'Admin@123', 'admin', 'TRUE'],
-  ['demo1', 'demo123', 'learner', 'TRUE'],
-  ['demo2', 'demo123', 'learner', 'TRUE'],
-  ['demo3', 'demo123', 'learner', 'TRUE'],
-  ['demo4', 'demo123', 'learner', 'TRUE'],
-  ['demo5', 'demo123', 'learner', 'TRUE'],
-  ['demo6', 'demo123', 'learner', 'TRUE'],
-  ['demo7', 'demo123', 'learner', 'TRUE'],
-  ['demo8', 'demo123', 'learner', 'TRUE'],
-  ['demo9', 'demo123', 'learner', 'TRUE'],
-  ['demo10', 'demo123', 'learner', 'TRUE']
+  ['juma.almughairi@opaloman.org', 'Juma@123#', 'learner', 'TRUE'],
+  ['marwan.zadjali@db.om', 'Marwan@123#', 'learner', 'TRUE'],
+  ['abeer.balushi@db.om', 'Abeer@123#', 'learner', 'TRUE'],
+  ['f.houti@db.om', 'Faisal@123#', 'learner', 'TRUE'],
+  ['nsalsaadi@sai.gov.om', 'Nasser@123#', 'learner', 'TRUE'],
+  ['Nasser.ALMukhaini@duqm.gov.om', 'Nasser@123#', 'learner', 'TRUE'],
+  ['Ilham.Alharthy@tashgheel.om', 'Ilham@123#', 'learner', 'TRUE'],
+  ['halaghbari@gccstat.org', 'Hamad@123#', 'learner', 'TRUE'],
+  ['ialfarai@gccstat.org', 'Ibrahim@123#', 'learner', 'TRUE'],
+  ['Salrumhi@gccstat.org', 'Sheikhan@123#', 'learner', 'TRUE'],
+  ['Nalghanami@gccstat.org', 'Najat@123#', 'learner', 'TRUE'],
+  ['salamah@taageer.com', 'Salamah@123#', 'learner', 'TRUE'],
+  ['afrah.al-ajmi@taageer.com', 'Afrah@123#', 'learner', 'TRUE'],
+  ['buthaina.al-balushi@taageer.com', 'Buthaina@123#', 'learner', 'TRUE'],
+  ['zamzam@oaaaqa.gov.om', 'Zamzam@123#', 'learner', 'TRUE'],
+  ['ahmed.allawati@oaaaqa.gov.om', 'Ahmed@123#', 'learner', 'TRUE'],
+  ['salrashdi@oaaaqa.gov.om', 'Samar@123#', 'learner', 'TRUE'],
+  ['saidf@oaaaqa.gov.om', 'Said@123#', 'learner', 'TRUE'],
+  ['reemm@oaaaqa.gov.om', 'Reem@123#', 'learner', 'TRUE'],
+  ['alhusain.alkazruni@oaaaqa.gov.om', 'Hussein@123#', 'learner', 'TRUE'],
+  ['Omar.AlMukhaini@rop.gov.om', 'Omar@123#', 'learner', 'TRUE'],
+  ['ghaida.s.almamari@gmail.com', 'Ghaida@123#', 'learner', 'TRUE'],
+  ['Nabeel.h.albalushi@gmail.com', 'Nabeel@123#', 'learner', 'TRUE'],
+  ['maram@mrblawfirm.com', 'Maram@123#', 'learner', 'TRUE']
 ];
 
 function doGet() {

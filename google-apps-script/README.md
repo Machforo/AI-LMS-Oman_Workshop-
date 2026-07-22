@@ -8,7 +8,7 @@
 ## 2. Initialize sheets
 
 1. Run **`setupSheets`** once and approve permissions.
-2. Tabs: **Users**, **CardPolicies**, **AccessGrants**, **Sessions** (seeded with Admin + demo1–demo10).
+2. Tabs: **Users**, **CardPolicies**, **AccessGrants**, **Sessions** (seeded with Admin + Muscat cohort emails).
 
 ## 3. Deploy as Web App
 

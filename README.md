@@ -8,8 +8,10 @@ Single login → three product cards (AI Tools Playbook, AI Ascent, Hands-on Pra
 
 | Username | Password | Role |
 |----------|----------|------|
-| `demo1` … `demo10` | `demo123` | learner |
+| participant **email** (from attendance sheet) | `Firstname@123#` (first letter capital) | learner |
 | `Admin` | `Admin@123` | admin (cards + hub ACL) |
+
+Example: `juma.almughairi@opaloman.org` / `Juma@123#`
 
 ## Local open
 

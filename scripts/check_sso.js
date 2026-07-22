@@ -38,9 +38,9 @@ function verify(token, secret) {
 }
 
 var secret = 'traininglobe-hub-sso-v1';
-var token = mint('demo1', 'learner', secret, 12);
+var token = mint('juma.almughairi@opaloman.org', 'learner', secret, 12);
 var ok = verify(token, secret);
-if (!ok || ok.u !== 'demo1') {
+if (!ok || ok.u !== 'juma.almughairi@opaloman.org') {
   console.error('FAIL: verify', ok);
   process.exit(1);
 }
@@ -48,7 +48,7 @@ if (verify(token, 'wrong-secret')) {
   console.error('FAIL: bad secret accepted');
   process.exit(1);
 }
-var expired = b64urlEncode(JSON.stringify({ u: 'demo1', role: 'learner', exp: Date.now() - 1000 }));
+var expired = b64urlEncode(JSON.stringify({ u: 'juma.almughairi@opaloman.org', role: 'learner', exp: Date.now() - 1000 }));
 expired = expired + '.' + softSign(expired, secret);
 if (verify(expired, secret)) {
   console.error('FAIL: expired accepted');
