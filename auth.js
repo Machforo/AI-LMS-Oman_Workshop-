@@ -26,7 +26,9 @@
     { username: 'Omar.AlMukhaini@rop.gov.om', password: 'Omar@123#', name: 'Omar', role: 'learner' },
     { username: 'ghaida.s.almamari@gmail.com', password: 'Ghaida@123#', name: 'Ghaida', role: 'learner' },
     { username: 'Nabeel.h.albalushi@gmail.com', password: 'Nabeel@123#', name: 'Nabeel', role: 'learner' },
-    { username: 'maram@mrblawfirm.com', password: 'Maram@123#', name: 'Maram', role: 'learner' }
+    { username: 'maram@mrblawfirm.com', password: 'Maram@123#', name: 'Maram', role: 'learner' },
+    { username: 'fananeric192@gmail.com', password: 'Fanan@123#', name: 'Fanan', role: 'learner' },
+    { username: 'mubarak.alsalami@tashgheel.om', password: 'Mubarak@123#', name: 'Mubarak', role: 'learner' }
   ];
 
   function readSession() {

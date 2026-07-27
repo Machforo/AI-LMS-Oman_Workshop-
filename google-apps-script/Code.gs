@@ -44,7 +44,9 @@ var SEED_USERS = [
   ['Omar.AlMukhaini@rop.gov.om', 'Omar@123#', 'learner', 'TRUE'],
   ['ghaida.s.almamari@gmail.com', 'Ghaida@123#', 'learner', 'TRUE'],
   ['Nabeel.h.albalushi@gmail.com', 'Nabeel@123#', 'learner', 'TRUE'],
-  ['maram@mrblawfirm.com', 'Maram@123#', 'learner', 'TRUE']
+  ['maram@mrblawfirm.com', 'Maram@123#', 'learner', 'TRUE'],
+  ['fananeric192@gmail.com', 'Fanan@123#', 'learner', 'TRUE'],
+  ['mubarak.alsalami@tashgheel.om', 'Mubarak@123#', 'learner', 'TRUE']
 ];
 
 function doGet() {
