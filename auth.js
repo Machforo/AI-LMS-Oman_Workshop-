@@ -28,7 +28,10 @@
     { username: 'Nabeel.h.albalushi@gmail.com', password: 'Nabeel@123#', name: 'Nabeel', role: 'learner' },
     { username: 'maram@mrblawfirm.com', password: 'Maram@123#', name: 'Maram', role: 'learner' },
     { username: 'fananeric192@gmail.com', password: 'Fanan@123#', name: 'Fanan', role: 'learner' },
-    { username: 'mubarak.alsalami@tashgheel.om', password: 'Mubarak@123#', name: 'Mubarak', role: 'learner' }
+    { username: 'mubarak.alsalami@tashgheel.om', password: 'Mubarak@123#', name: 'Mubarak', role: 'learner' },
+    { username: 'krunal.bhele@traininglobe.com', password: 'Krunal@123#', name: 'Krunal', role: 'learner' },
+    { username: 'archana.shukla@traininglobe.com', password: 'Archana@123#', name: 'Archana', role: 'learner' },
+    { username: 'pallabi.hansda@traininglobe.com', password: 'Pallabi@123#', name: 'Pallabi', role: 'learner' }
   ];
 
   function readSession() {
